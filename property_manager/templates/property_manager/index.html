@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+    <script>
+        var test = "{{test}}"
+        var property_list = JSON.parse("{{property_list_json|escapejs}}")
+    </script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <script type="text/javascript" src="{% static 'property_manager/ygn_townships.js' %}"></script>
+</head>
+<body>
+    <h1>Hello world</h1>
+    <div id="map" style="width:40vw; aspect-ratio:1/1"></div>
+    <form action="">
+        <select name="type" id="type">
+            <option value="apartment">Apartment</option>
+            <option value="house">House</option>
+            <option value="condo">Condo</option>
+            <option value="all">All</option>
+        </select>
+    </form>
+    <script src="{% static 'property_manager/index.js' %}"></script>
+</body>
+</html>

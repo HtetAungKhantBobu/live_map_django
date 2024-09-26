@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:13.2
+    environment:
+      - POSTGRES_PASSWORD=password
+      - PGDATA=/tmp
+    ports:
+      - "5432:5432"
+    container_name: realestate_maps_db
+
+  redis:
+    image: redis:6.2.6
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - "6379:6379"
+    container_name: realestates_maps_redis
+
+  web:
+    image: realestate_maps_server
+    environment:
+      - PYTHONUNBUFFERED=1
+      - SECRET_KEY=whatever-secret-key
+    build: .
+    command: [ "./start_dev.sh" ]
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "8000:8000"
+    container_name: realestates_maps_web
+    depends_on:
+      - db
+      - redis
